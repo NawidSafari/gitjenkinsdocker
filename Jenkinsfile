@@ -35,13 +35,13 @@ peline{
         }
         stage('Build Image'){
             steps{
-                sh 'docker build -t app:1.0 .'
+                sh 'docker build -t app.'
             }
         }
         stage('Launch Container'){
             steps{
-                sh 'docker run -itd -p9090:80 app:1.0'
-                sh 'java -jar app/app.jar'
+                sh 'docker run -itd -p9090:80 app'
+                sh 'java -jar /app/app.jar'
             }
         }
         stage('Test'){
