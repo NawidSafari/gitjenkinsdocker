@@ -1,6 +1,7 @@
-pipeline{
 
-    agent any
+peline{
+
+    ageny any
 
     tools{
         maven 'm3'
@@ -11,7 +12,7 @@ pipeline{
         stage('Checkout'){
             steps{
                 git 'https://github.com/NawidSafari/gitjenkinsdocker.git'
-            }
+            }            
         }
         stage('Compile'){
             steps{
@@ -32,6 +33,26 @@ pipeline{
             steps{
                 archiveArtifacts 'target/*.jar'
             }
-        }    
+        }
+        stage('Build Image'){
+            steps{
+                sh 'docker build -t wrimage:1.0 .'
+            }
+        }
+        stage('Launch Container'){
+            steps{
+                sh 'docker run -itd -p80:80 wrimage:1.0'
+                sh 'java -jar app/app.jar'
+            }
+        }
+        stage('Test'){
+            steps{
+                sh 'curl http://localhost'
+            }
+        }
+
+
+
     }
+
 }
