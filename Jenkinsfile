@@ -35,12 +35,12 @@ peline{
         }
         stage('Build Image'){
             steps{
-                sh 'Sudo docker build -t wrimage:1.0 .'
+                sh 'docker build -t app:1.0 .'
             }
         }
         stage('Launch Container'){
             steps{
-                sh 'Sudo docker run -itd -p80:80 wrimage:1.0'
+                sh 'docker run -itd -p9090:80 app:1.0'
                 sh 'java -jar app/app.jar'
             }
         }
